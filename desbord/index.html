@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DESHBORD</title>
+    <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
@@ -25,7 +25,6 @@
             overflow-x: hidden;
         }
 
-        /* Login Screen */
         .login-screen {
             min-height: 100vh;
             display: flex;
@@ -98,10 +97,8 @@
             box-shadow: 0 10px 25px rgba(118, 75, 162, 0.4);
         }
 
-        /* Dashboard Layout */
         .dashboard-container { display: flex; min-height: 100vh; }
 
-        /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
             background: var(--primary-gradient);
@@ -159,7 +156,6 @@
             width: 25px;
         }
 
-        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
@@ -167,7 +163,6 @@
             transition: margin-left 0.3s;
         }
 
-        /* Top Bar */
         .top-bar {
             background: white;
             padding: 20px 30px;
@@ -193,7 +188,6 @@
             .hamburger-btn { display: block; }
         }
 
-        /* Stats Cards */
         .stats-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
@@ -252,7 +246,6 @@
             opacity: 0.1;
         }
 
-        /* Sections */
         .section { 
             display: none; 
             animation: fadeIn 0.4s; 
@@ -265,7 +258,6 @@
             to { opacity: 1; transform: translateY(0); } 
         }
 
-        /* Buttons */
         .btn-custom {
             background: var(--primary-gradient);
             color: white;
@@ -319,7 +311,6 @@
             transition: all 0.3s;
         }
 
-        /* Modal */
         .modal-content {
             border-radius: 20px;
             border: none;
@@ -341,7 +332,6 @@
             padding: 20px 30px;
         }
 
-        /* Form Controls */
         .form-control, .form-select {
             border-radius: 12px;
             border: 2px solid #e0e0e0;
@@ -354,7 +344,6 @@
             box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
         }
 
-        /* Upload Area */
         .upload-area {
             border: 2px dashed #cbd5e0;
             border-radius: 15px;
@@ -385,7 +374,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 80px 20px;
@@ -411,7 +399,6 @@
             font-size: 1.1rem;
         }
 
-        /* Table */
         .table-container {
             background: white;
             border-radius: 20px;
@@ -450,7 +437,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* Badge */
         .badge-custom {
             padding: 6px 15px;
             border-radius: 50px;
@@ -458,7 +444,6 @@
             font-size: 0.85rem;
         }
 
-        /* Overlay */
         .overlay {
             display: none;
             position: fixed;
@@ -472,7 +457,6 @@
         
         .overlay.show { display: block; }
 
-        /* Loading Spinner */
         .spinner-overlay {
             position: fixed;
             top: 0;
@@ -488,7 +472,6 @@
         
         .spinner-overlay.show { display: flex; }
 
-        /* Alert System */
         .alert-container {
             position: fixed;
             top: 20px;
@@ -532,10 +515,8 @@
 </head>
 <body>
 
-<!-- Alert Container -->
 <div class="alert-container" id="alertContainer"></div>
 
-<!-- Login Screen -->
 <div class="login-screen" id="loginScreen">
     <div class="login-box">
         <h2><i class="bi bi-shield-lock-fill"></i> Admin Panel</h2>
@@ -545,13 +526,10 @@
     </div>
 </div>
 
-<!-- Dashboard -->
 <div class="dashboard-container d-none" id="dashboard">
     
-    <!-- Overlay for mobile -->
     <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h3><i class="bi bi-grid-fill"></i> MY SHOP</h3>
@@ -580,9 +558,7 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
-        <!-- Top Bar -->
         <div class="top-bar">
             <div class="d-flex align-items-center gap-3">
                 <button class="hamburger-btn" onclick="toggleSidebar()">
@@ -593,7 +569,6 @@
             <span class="badge bg-primary rounded-pill px-3 py-2">Admin</span>
         </div>
 
-        <!-- Dashboard Section -->
         <div id="dashboardSection" class="section active">
             <div class="stats-grid">
                 <div class="stat-card primary">
@@ -612,14 +587,13 @@
                     <i class="bi bi-cart-check"></i>
                 </div>
                 <div class="stat-card info">
-                    <h3 id="statPending">0</h3>
-                    <p>Pending Orders</p>
-                    <i class="bi bi-clock-history"></i>
+                    <h3 id="statUsers">0</h3>
+                    <p>Total Users</p>
+                    <i class="bi bi-people"></i>
                 </div>
             </div>
         </div>
 
-        <!-- Products Section -->
         <div id="productsSection" class="section">
             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
                 <h4 class="fw-bold mb-0">Product Management</h4>
@@ -630,19 +604,16 @@
             <div id="productsContent"></div>
         </div>
 
-        <!-- Orders Section -->
         <div id="ordersSection" class="section">
             <h4 class="fw-bold mb-4">Order Management</h4>
             <div id="ordersContent"></div>
         </div>
 
-        <!-- Users Section -->
         <div id="usersSection" class="section">
             <h4 class="fw-bold mb-4">User Management</h4>
             <div id="usersContent"></div>
         </div>
 
-        <!-- Discounts Section -->
         <div id="discountsSection" class="section">
             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
                 <h4 class="fw-bold mb-0">Discount Codes</h4>
@@ -655,7 +626,6 @@
     </div>
 </div>
 
-<!-- Add/Edit Product Modal -->
 <div class="modal fade" id="productModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -706,7 +676,6 @@
     </div>
 </div>
 
-<!-- Discount Code Modal -->
 <div class="modal fade" id="discountModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -740,7 +709,6 @@
     </div>
 </div>
 
-<!-- Loading Spinner -->
 <div class="spinner-overlay" id="spinner">
     <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"></div>
 </div>
@@ -754,12 +722,10 @@ let editingProductId = null;
 let productModal, discountModal;
 let discounts = [];
 
-// Initialize modal
 document.addEventListener('DOMContentLoaded', function() {
     productModal = new bootstrap.Modal(document.getElementById('productModal'));
     discountModal = new bootstrap.Modal(document.getElementById('discountModal'));
     
-    // Check Persistent Login
     if(localStorage.getItem('isAdminLoggedIn') === 'true') {
         document.getElementById('loginScreen').classList.add('d-none');
         document.getElementById('dashboard').classList.remove('d-none');
@@ -767,11 +733,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Login
 function login() {
     const pass = document.getElementById('adminPassword').value;
     if(pass === ADMIN_PASSWORD) {
-        localStorage.setItem('isAdminLoggedIn', 'true'); // Save login state
+        localStorage.setItem('isAdminLoggedIn', 'true');
         document.getElementById('loginScreen').classList.add('d-none');
         document.getElementById('dashboard').classList.remove('d-none');
         loadStats();
@@ -782,13 +747,11 @@ function login() {
     }
 }
 
-// Toggle Sidebar
 function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('show');
     document.getElementById('overlay').classList.toggle('show');
 }
 
-// Show Section
 function showSection(sectionId, element) {
     document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
     if(element) element.classList.add('active');
@@ -816,7 +779,6 @@ function showSection(sectionId, element) {
     }
 }
 
-// Show Loading
 function showLoading() {
     document.getElementById('spinner').classList.add('show');
 }
@@ -825,7 +787,6 @@ function hideLoading() {
     document.getElementById('spinner').classList.remove('show');
 }
 
-// Alert System
 function showAlert(message, type) {
     const container = document.getElementById('alertContainer');
     const alert = document.createElement('div');
@@ -849,7 +810,6 @@ function showAlert(message, type) {
     }, 3000);
 }
 
-// Load Stats
 async function loadStats() {
     try {
         const res = await fetch(`${API_URL}/admin/stats`);
@@ -857,11 +817,10 @@ async function loadStats() {
         document.getElementById('statProducts').innerText = data.total_products || 0;
         document.getElementById('statRevenue').innerText = '$' + (data.total_revenue || 0).toFixed(2);
         document.getElementById('statOrders').innerText = data.total_orders || 0;
-        document.getElementById('statPending').innerText = data.pending_orders || 0;
+        document.getElementById('statUsers').innerText = data.total_customers || 0;
     } catch(e) { console.log(e); }
 }
 
-// Load Products
 async function loadProducts() {
     showLoading();
     try {
@@ -928,7 +887,6 @@ async function loadProducts() {
     hideLoading();
 }
 
-// Load Orders
 async function loadOrders() {
     showLoading();
     try {
@@ -997,17 +955,11 @@ async function loadOrders() {
     hideLoading();
 }
 
-// Load Users
 async function loadUsers() {
     showLoading();
     try {
-        // Simulated data for demo
-        const users = [
-            {id: 1, name: 'Sokha Chan', email: 'sokha@example.com', status: 'active'},
-            {id: 2, name: 'Dara Kim', email: 'dara@example.com', status: 'banned'},
-            {id: 3, name: 'Vireak Ly', email: 'vireak@example.com', status: 'active'}
-        ];
-        
+        const res = await fetch(`${API_URL}/admin/users`);
+        const users = await res.json();
         const container = document.getElementById('usersContent');
         
         if(!users || users.length === 0) {
@@ -1026,9 +978,12 @@ async function loadUsers() {
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Orders</th>
                             <th>Status</th>
+                            <th>Joined</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -1043,9 +998,12 @@ async function loadUsers() {
             
             html += `
                 <tr>
+                    <td><strong>#${u.id}</strong></td>
                     <td><strong>${u.name}</strong></td>
                     <td>${u.email}</td>
+                    <td><span class="badge-custom bg-info">${u.total_orders}</span></td>
                     <td><span class="badge-custom ${statusClass}">${u.status}</span></td>
+                    <td>${new Date(u.created_at).toLocaleDateString()}</td>
                     <td>${actionBtn}</td>
                 </tr>
             `;
@@ -1060,21 +1018,50 @@ async function loadUsers() {
     hideLoading();
 }
 
-// Ban User
-function banUser(id) {
-    if(confirm('Are you sure you want to ban this user?')) {
-        showAlert('User has been banned successfully!', 'success');
-        loadUsers();
+async function banUser(id) {
+    if(!confirm('Are you sure you want to ban this user?')) return;
+    
+    showLoading();
+    try {
+        const res = await fetch(`${API_URL}/admin/users/${id}/status`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ status: 'banned' })
+        });
+        
+        if(res.ok) {
+            showAlert('User has been banned successfully!', 'success');
+            loadUsers();
+        } else {
+            showAlert('Failed to ban user', 'error');
+        }
+    } catch(err) {
+        showAlert('Error: ' + err.message, 'error');
     }
+    hideLoading();
 }
 
-// Unban User
-function unbanUser(id) {
-    showAlert('User has been unbanned!', 'success');
-    loadUsers();
+async function unbanUser(id) {
+    showLoading();
+    try {
+        const res = await fetch(`${API_URL}/admin/users/${id}/status`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ status: 'active' })
+        });
+        
+        if(res.ok) {
+            showAlert('User has been unbanned!', 'success');
+            loadUsers();
+        } else {
+            showAlert('Failed to unban user', 'error');
+        }
+    } catch(err) {
+        showAlert('Error: ' + err.message, 'error');
+    }
+    hideLoading();
 }
 
-// Load Discounts
 function loadDiscounts() {
     const container = document.getElementById('discountsContent');
     
@@ -1125,13 +1112,11 @@ function loadDiscounts() {
     container.innerHTML = html;
 }
 
-// Open Discount Modal
 function openDiscountModal() {
     document.getElementById('discountForm').reset();
     discountModal.show();
 }
 
-// Save Discount
 function saveDiscount(e) {
     e.preventDefault();
     
@@ -1146,7 +1131,6 @@ function saveDiscount(e) {
     document.getElementById('discountForm').reset();
 }
 
-// Delete Discount
 function deleteDiscount(index) {
     if(confirm('Are you sure you want to delete this discount code?')) {
         discounts.splice(index, 1);
@@ -1155,7 +1139,6 @@ function deleteDiscount(index) {
     }
 }
 
-// Open Add Modal
 function openAddModal() {
     editingProductId = null;
     document.getElementById('modalTitle').innerText = 'Add New Product';
@@ -1166,7 +1149,6 @@ function openAddModal() {
     productModal.show();
 }
 
-// Open Edit Modal
 function openEditModal(id, name, price, stock, description, imageUrl) {
     editingProductId = id;
     document.getElementById('modalTitle').innerText = 'Edit Product';
@@ -1179,7 +1161,7 @@ function openEditModal(id, name, price, stock, description, imageUrl) {
     if(imageUrl) {
         document.getElementById('imagePreview').src = imageUrl;
         document.getElementById('imagePreview').style.display = 'block';
-        selectedImageBase64 = null; // Keep existing image
+        selectedImageBase64 = null;
     } else {
         document.getElementById('imagePreview').style.display = 'none';
     }
@@ -1187,7 +1169,6 @@ function openEditModal(id, name, price, stock, description, imageUrl) {
     productModal.show();
 }
 
-// Handle File Select
 function handleFileSelect(input) {
     const file = input.files[0];
     if (!file) return;
@@ -1207,14 +1188,12 @@ function handleFileSelect(input) {
     reader.readAsDataURL(file);
 }
 
-// Save Product (Add or Edit)
 async function saveProduct(e) {
     e.preventDefault();
     showLoading();
 
     let finalImageUrl = '';
     
-    // Upload image if selected
     if (selectedImageBase64) {
         try {
             const uploadRes = await fetch(`${API_URL}/admin/upload`, {
@@ -1272,7 +1251,6 @@ async function saveProduct(e) {
     hideLoading();
 }
 
-// Delete Product
 async function deleteProduct(id) {
     if (!confirm('Are you sure you want to delete this product?')) return;
     
@@ -1295,7 +1273,6 @@ async function deleteProduct(id) {
     hideLoading();
 }
 
-// Update Order Status
 async function updateOrderStatus(id, status) {
     showLoading();
     try {
