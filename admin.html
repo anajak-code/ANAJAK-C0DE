@@ -3,170 +3,474 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - My Shop</title>
+    <title>AHNAJAK DESHBORD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Hanuman:wght@300;400;700&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Hanuman:wght@300;400;700&family=Poppins:wght@300;400;600;700&display=swap');
         
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --glass-bg: rgba(255, 255, 255, 0.95);
+            --sidebar-width: 280px;
         }
 
-        body { font-family: 'Poppins', 'Hanuman', sans-serif; background: #f0f2f5; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* Sidebar Styling */
-        .sidebar {
-            min-height: 100vh;
+        body { 
+            font-family: 'Poppins', 'Hanuman', sans-serif; 
+            background: #f0f2f5;
+            overflow-x: hidden;
+        }
+
+        /* Mobile Warning */
+        .mobile-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .mobile-warning.show { display: flex; }
+        
+        .mobile-warning-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .mobile-warning-content i { font-size: 4rem; color: #667eea; margin-bottom: 20px; }
+        .mobile-warning-content h3 { margin-bottom: 15px; color: #333; }
+        .mobile-warning-content p { color: #666; margin-bottom: 20px; }
+        .mobile-warning-content button {
             background: var(--primary-gradient);
             color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-gradient);
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        
+        .login-box h2 { 
+            color: #333; 
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .login-box .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        
+        .login-box input {
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+            padding: 15px 20px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .login-box input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
+        }
+        
+        .login-box button {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .login-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(118, 75, 162, 0.4);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-gradient);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
             box-shadow: 4px 0 15px rgba(0,0,0,0.1);
         }
-        .nav-link { color: rgba(255,255,255,0.8); border-radius: 10px; margin-bottom: 5px; transition: all 0.3s; }
-        .nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.2); color: white; transform: translateX(5px); }
         
-        /* Cards & Stats */
+        .sidebar-header {
+            padding: 30px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h3 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 15px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            margin-bottom: 8px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+        
+        .menu-item:hover, .menu-item.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .menu-item i {
+            font-size: 1.3rem;
+            margin-right: 15px;
+            width: 25px;
+        }
+        
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+        }
+        
+        .top-bar {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-bar h2 {
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
         .stat-card {
-            border: none; border-radius: 20px; overflow: hidden; position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
-        .stat-card.bg-primary { background: var(--primary-gradient); color: white; }
-        .stat-card h3 { font-weight: 700; }
         
-        /* Modern Form & Upload Area */
-        .upload-area {
-            border: 2px dashed #cbd5e0; border-radius: 15px; padding: 30px; text-align: center;
-            cursor: pointer; transition: all 0.3s; background: #f8fafc; position: relative;
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
-        .upload-area:hover, .upload-area.dragover { border-color: #764ba2; background: #f3f0ff; }
-        .upload-area i { font-size: 2rem; color: #764ba2; margin-bottom: 10px; }
-        .preview-img { max-width: 100%; max-height: 200px; border-radius: 10px; margin-top: 15px; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+        
+        .stat-card.primary::before { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .stat-card.success::before { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .stat-card.warning::before { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .stat-card.info::before { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .stat-card p {
+            color: #666;
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        .stat-card i {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            opacity: 0.1;
+        }
+
+        /* Content Sections */
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .empty-state i {
+            font-size: 6rem;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .empty-state p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Table Styling */
+        .table-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .table thead th {
+            background: #f8f9fa;
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
         /* Buttons */
-        .btn-gradient {
-            background: var(--primary-gradient); color: white; border: none; border-radius: 50px;
-            padding: 10px 30px; font-weight: 600; transition: all 0.3s;
+        .btn-primary-custom {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        .btn-gradient:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4); color: white; }
         
-        /* Table */
-        .table-container { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .table thead th { background: #f8f9fa; border-bottom: 2px solid #e9ecef; color: #4a5568; font-weight: 600; }
-        .product-thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 10px; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(118, 75, 162, 0.4);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 <body>
 
-<!-- Login Section -->
-<div id="loginSection" class="d-flex align-items-center justify-content-center vh-100" style="background: var(--primary-gradient);">
-    <div class="card p-4 shadow-lg" style="width: 350px; border-radius: 20px;">
-        <h3 class="text-center mb-4"><i class="bi bi-shield-lock-fill"></i> Admin</h3>
-        <input type="password" id="adminPassword" class="form-control form-control-lg mb-3" placeholder="Enter Password">
-        <button onclick="login()" class="btn btn-gradient w-100 py-2">Login</button>
+<!-- Mobile Warning -->
+<div class="mobile-warning" id="mobileWarning">
+    <div class="mobile-warning-content">
+        <i class="bi bi-phone"></i>
+        <h3>Desktop Mode Required</h3>
+        <p>Please enable desktop mode or rotate your device to landscape mode for the best experience.</p>
+        <button onclick="document.getElementById('mobileWarning').classList.remove('show')">I Understand</button>
     </div>
 </div>
 
-<!-- Dashboard Section -->
-<div id="dashboardSection" class="container-fluid d-none">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-2 sidebar p-4 d-none d-md-block">
-            <h4 class="mb-4 fw-bold"><i class="bi bi-grid-fill"></i> MY SHOP</h4>
-            <nav class="nav flex-column">
-                <a class="nav-link active" href="#" onclick="showSection('overview')"><i class="bi bi-speedometer2 me-2"></i> Overview</a>
-                <a class="nav-link" href="#" onclick="showSection('products')"><i class="bi bi-box-seam me-2"></i> Products</a>
-                <a class="nav-link" href="#" onclick="showSection('orders')"><i class="bi bi-cart-check me-2"></i> Orders</a>
-                <a class="nav-link mt-5" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
-            </nav>
+<!-- Login Screen -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-box">
+        <h2><i class="bi bi-shield-lock"></i> Admin Panel</h2>
+        <p class="subtitle">Enter your password to access the dashboard</p>
+        <input type="password" id="adminPassword" placeholder="Enter Password" onkeypress="if(event.key==='Enter')login()">
+        <button onclick="login()">Login to Dashboard</button>
+    </div>
+</div>
+
+<!-- Dashboard -->
+<div class="dashboard-container d-none" id="dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="bi bi-grid-fill"></i> MY SHOP</h3>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-item active" onclick="showSection('dashboard')">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="menu-item" onclick="showSection('products')">
+                <i class="bi bi-box-seam"></i>
+                <span>Products</span>
+            </div>
+            <div class="menu-item" onclick="showSection('orders')">
+                <i class="bi bi-cart-check"></i>
+                <span>Orders</span>
+            </div>
+            <div class="menu-item" onclick="showSection('users')">
+                <i class="bi bi-people"></i>
+                <span>Users</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <h2 id="pageTitle">Dashboard Overview</h2>
+            <div>
+                <span class="badge bg-primary p-2">Admin</span>
+            </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="col-md-10 p-4">
-            
-            <!-- Overview -->
-            <div id="overviewSection">
-                <h2 class="fw-bold mb-4">Dashboard Overview</h2>
-                <div class="row g-4">
-                    <div class="col-md-3"><div class="card stat-card bg-primary p-3"><h3 id="statProducts">0</h3><p>Total Products</p></div></div>
-                    <div class="col-md-3"><div class="card stat-card bg-success p-3"><h3 id="statRevenue">$0</h3><p>Total Revenue</p></div></div>
-                    <div class="col-md-3"><div class="card stat-card bg-warning p-3"><h3 id="statOrders">0</h3><p>Total Orders</p></div></div>
-                    <div class="col-md-3"><div class="card stat-card bg-info p-3"><h3 id="statPending">0</h3><p>Pending</p></div></div>
+        <!-- Dashboard Section -->
+        <div id="dashboardSection" class="section active">
+            <div class="stats-grid">
+                <div class="stat-card primary">
+                    <h3 id="statProducts">0</h3>
+                    <p>Total Products</p>
+                    <i class="bi bi-box-seam"></i>
+                </div>
+                <div class="stat-card success">
+                    <h3 id="statRevenue">$0</h3>
+                    <p>Total Revenue</p>
+                    <i class="bi bi-cash-coin"></i>
+                </div>
+                <div class="stat-card warning">
+                    <h3 id="statOrders">0</h3>
+                    <p>Total Orders</p>
+                    <i class="bi bi-cart-check"></i>
+                </div>
+                <div class="stat-card info">
+                    <h3 id="statPending">0</h3>
+                    <p>Pending Orders</p>
+                    <i class="bi bi-clock-history"></i>
                 </div>
             </div>
+        </div>
 
-            <!-- Products Management -->
-            <div id="productsSection" class="d-none">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="fw-bold">Manage Products</h2>
-                    <button class="btn btn-gradient" onclick="toggleAddForm()"><i class="bi bi-plus-lg"></i> Add Product</button>
-                </div>
+        <!-- Products Section -->
+        <div id="productsSection" class="section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3>Product Management</h3>
+                <button class="btn-primary-custom" onclick="showAddProduct()">
+                    <i class="bi bi-plus-circle"></i> Add Product
+                </button>
+            </div>
+            <div id="productsContent">
+                <!-- Will be loaded dynamically -->
+            </div>
+        </div>
 
-                <!-- Add Product Form (Hidden by default) -->
-                <div id="addProductForm" class="card mb-4 shadow-sm d-none" style="border-radius: 20px;">
-                    <div class="card-body p-4">
-                        <h5 class="mb-3">New Product Details</h5>
-                        <form onsubmit="addProduct(event)">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Product Name</label>
-                                    <input type="text" id="prodName" class="form-control" required>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label">Price ($)</label>
-                                    <input type="number" id="prodPrice" class="form-control" step="0.01" required>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label">Stock</label>
-                                    <input type="number" id="prodStock" class="form-control" value="0">
-                                </div>
-                                
-                                <!-- Image Upload Area -->
-                                <div class="col-12">
-                                    <label class="form-label">Product Image</label>
-                                    <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
-                                        <i class="bi bi-cloud-arrow-up-fill"></i>
-                                        <p class="mb-0 fw-bold">Click to upload or drag and drop</p>
-                                        <small class="text-muted">PNG, JPG up to 5MB</small>
-                                        <input type="file" id="fileInput" accept="image/*" class="d-none" onchange="handleFileSelect(this)">
-                                        <img id="imagePreview" class="preview-img">
-                                    </div>
-                                </div>
+        <!-- Orders Section -->
+        <div id="ordersSection" class="section">
+            <h3 class="mb-4">Order Management</h3>
+            <div id="ordersContent">
+                <!-- Will be loaded dynamically -->
+            </div>
+        </div>
 
-                                <div class="col-12">
-                                    <label class="form-label">Description</label>
-                                    <textarea id="prodDesc" class="form-control" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="mt-4 text-end">
-                                <button type="button" class="btn btn-light me-2" onclick="toggleAddForm()">Cancel</button>
-                                <button type="submit" class="btn btn-gradient" id="saveBtn">Save Product</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Products Table -->
-                <div class="table-container">
-                    <table class="table table-hover align-middle">
-                        <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Stock</th><th>Action</th></tr></thead>
-                        <tbody id="productsTable"></tbody>
-                    </table>
+        <!-- Users Section -->
+        <div id="usersSection" class="section">
+            <h3 class="mb-4">User Management</h3>
+            <div class="table-container">
+                <div class="empty-state">
+                    <i class="bi bi-people"></i>
+                    <h3>User Management</h3>
+                    <p>User management features coming soon</p>
                 </div>
             </div>
-
-            <!-- Orders Section (Same logic as before, just styling updated) -->
-            <div id="ordersSection" class="d-none">
-                <h2 class="fw-bold mb-4">Customer Orders</h2>
-                <div class="table-container">
-                    <table class="table table-hover align-middle">
-                        <thead><tr><th>ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
-                        <tbody id="ordersTable"></tbody>
-                    </table>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
@@ -174,140 +478,201 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 const API_URL = 'https://payment.forestsmp.site/api';
-let selectedImageBase64 = null;
+const ADMIN_PASSWORD = 'AHNAJAK@CODE@147369';
 
-// --- AUTH & NAVIGATION ---
-function login() {
-    if(document.getElementById('adminPassword').value === 'admin123') {
-        document.getElementById('loginSection').classList.add('d-none');
-        document.getElementById('dashboardSection').classList.remove('d-none');
-        loadStats();
-    } else alert('Wrong password!');
-}
-
-function showSection(id) {
-    ['overview', 'products', 'orders'].forEach(s => document.getElementById(s+'Section').classList.add('d-none'));
-    document.getElementById(id+'Section').classList.remove('d-none');
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    event.target.closest('.nav-link').classList.add('active');
-    
-    if(id === 'products') loadProducts();
-    if(id === 'orders') loadOrders();
-    if(id === 'overview') loadStats();
-}
-
-// --- IMAGE UPLOAD LOGIC ---
-function handleFileSelect(input) {
-    const file = input.files[0];
-    if (!file) return;
-
-    // Check size (max 5MB for Base64 safety)
-    if (file.size > 5 * 1024 * 1024) {
-        alert("Image is too large! Max 5MB.");
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        selectedImageBase64 = e.target.result;
-        const preview = document.getElementById('imagePreview');
-        preview.src = selectedImageBase64;
-        preview.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-}
-
-// Drag and Drop support
-const dropZone = document.getElementById('dropZone');
-dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-    if (e.dataTransfer.files.length) {
-        document.getElementById('fileInput').files = e.dataTransfer.files;
-        handleFileSelect(document.getElementById('fileInput'));
+// Check mobile on load
+window.addEventListener('load', function() {
+    if (window.innerWidth < 992) {
+        document.getElementById('mobileWarning').classList.add('show');
     }
 });
 
-// --- PRODUCT MANAGEMENT ---
-async function addProduct(e) {
-    e.preventDefault();
-    const btn = document.getElementById('saveBtn');
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
-    btn.disabled = true;
-
-    let finalImageUrl = '';
-    
-    // 1. If image selected, upload it first
-    if (selectedImageBase64) {
-        try {
-            const uploadRes = await fetch(`${API_URL}/admin/upload`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ image: selectedImageBase64 })
-            });
-            const uploadData = await uploadRes.json();
-            if(uploadData.url) finalImageUrl = `https://payment.forestsmp.site${uploadData.url}`;
-        } catch(err) { console.error("Upload failed", err); }
+// Login
+function login() {
+    const password = document.getElementById('adminPassword').value;
+    if (password === ADMIN_PASSWORD) {
+        document.getElementById('loginScreen').classList.add('d-none');
+        document.getElementById('dashboard').classList.remove('d-none');
+        loadStats();
+    } else {
+        alert('Incorrect password!');
+        document.getElementById('adminPassword').value = '';
     }
+}
 
-    // 2. Save Product Data
-    const product = {
-        name: document.getElementById('prodName').value,
-        price: parseFloat(document.getElementById('prodPrice').value),
-        stock: parseInt(document.getElementById('prodStock').value),
-        description: document.getElementById('prodDesc').value,
-        image_url: finalImageUrl || ''
-    };
+// Show Section
+function showSection(section) {
+    // Update menu
+    document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+    event.target.closest('.menu-item').classList.add('active');
+    
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    
+    // Show selected section
+    if (section === 'dashboard') {
+        document.getElementById('dashboardSection').classList.add('active');
+        document.getElementById('pageTitle').textContent = 'Dashboard Overview';
+        loadStats();
+    } else if (section === 'products') {
+        document.getElementById('productsSection').classList.add('active');
+        document.getElementById('pageTitle').textContent = 'Product Management';
+        loadProducts();
+    } else if (section === 'orders') {
+        document.getElementById('ordersSection').classList.add('active');
+        document.getElementById('pageTitle').textContent = 'Order Management';
+        loadOrders();
+    } else if (section === 'users') {
+        document.getElementById('usersSection').classList.add('active');
+        document.getElementById('pageTitle').textContent = 'User Management';
+    }
+    
+    // On mobile, close sidebar after selection
+    if (window.innerWidth < 992) {
+        document.getElementById('sidebar').classList.remove('show');
+    }
+}
 
+// Load Stats
+async function loadStats() {
     try {
-        await fetch(`${API_URL}/admin/products`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(product)
-        });
-        alert('Product added successfully!');
-        toggleAddForm();
+        const res = await fetch(`${API_URL}/admin/stats`);
+        const stats = await res.json();
+        
+        document.getElementById('statProducts').textContent = stats.total_products || 0;
+        document.getElementById('statRevenue').textContent = '$' + (stats.total_revenue || 0).toFixed(2);
+        document.getElementById('statOrders').textContent = stats.total_orders || 0;
+        document.getElementById('statPending').textContent = stats.pending_orders || 0;
+    } catch (err) {
+        console.error('Error loading stats:', err);
+    }
+}
+
+// Load Products
+async function loadProducts() {
+    try {
+        const res = await fetch(`${API_URL}/products`);
+        const products = await res.json();
+        
+        const container = document.getElementById('productsContent');
+        
+        if (!products || products.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="bi bi-box-seam"></i>
+                    <h3>No Products Yet</h3>
+                    <p>Start by adding your first product to the store</p>
+                    <button class="btn-primary-custom mt-3" onclick="showAddProduct()">
+                        <i class="bi bi-plus-circle"></i> Add First Product
+                    </button>
+                </div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = `
+            <div class="table-container">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${products.map(p => `
+                            <tr>
+                                <td><img src="${p.image_url || 'https://via.placeholder.com/50'}" style="width:50px;height:50px;object-fit:cover;border-radius:10px;"></td>
+                                <td><strong>${p.name}</strong></td>
+                                <td>$${p.price.toFixed(2)}</td>
+                                <td><span class="badge ${p.stock > 0 ? 'bg-success' : 'bg-danger'}">${p.stock}</span></td>
+                                <td><button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${p.id})"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    } catch (err) {
+        document.getElementById('productsContent').innerHTML = 
+            `<div class="alert alert-danger">Error loading products: ${err.message}</div>`;
+    }
+}
+
+// Load Orders
+async function loadOrders() {
+    try {
+        const res = await fetch(`${API_URL}/admin/orders`);
+        const orders = await res.json();
+        
+        const container = document.getElementById('ordersContent');
+        
+        if (!orders || orders.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="bi bi-cart-x"></i>
+                    <h3>No Orders Yet</h3>
+                    <p>Orders will appear here once customers start purchasing</p>
+                </div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = `
+            <div class="table-container">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${orders.map(o => `
+                            <tr>
+                                <td>#${o.id}</td>
+                                <td>${o.customer_name}</td>
+                                <td>$${o.total_price.toFixed(2)}</td>
+                                <td><span class="badge bg-${o.status === 'completed' ? 'success' : o.status === 'pending' ? 'warning' : 'danger'}">${o.status}</span></td>
+                                <td>${new Date(o.created_at).toLocaleDateString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    } catch (err) {
+        document.getElementById('ordersContent').innerHTML = 
+            `<div class="alert alert-danger">Error loading orders: ${err.message}</div>`;
+    }
+}
+
+function showAddProduct() {
+    alert('Add Product feature - Please use the upload form');
+}
+
+async function deleteProduct(id) {
+    if (!confirm('Are you sure you want to delete this product?')) return;
+    
+    try {
+        await fetch(`${API_URL}/admin/products/${id}`, { method: 'DELETE' });
+        alert('Product deleted successfully!');
         loadProducts();
         loadStats();
-        // Reset form
-        selectedImageBase64 = null;
-        document.getElementById('imagePreview').style.display = 'none';
-        e.target.reset();
-    } catch(err) { alert('Error saving product'); }
-    finally {
-        btn.innerHTML = 'Save Product';
-        btn.disabled = false;
+    } catch (err) {
+        alert('Error deleting product: ' + err.message);
     }
 }
 
-// ... (loadProducts, deleteProduct, loadOrders functions remain same as previous code but update UI classes) ...
-async function loadProducts() {
-    const res = await fetch(`${API_URL}/products`);
-    const products = await res.json();
-    const tbody = document.getElementById('productsTable');
-    tbody.innerHTML = products.map(p => `
-        <tr>
-            <td><img src="${p.image_url || 'https://via.placeholder.com/50'}" class="product-thumb"></td>
-            <td class="fw-bold">${p.name}</td>
-            <td>$${p.price.toFixed(2)}</td>
-            <td><span class="badge ${p.stock > 0 ? 'bg-success' : 'bg-danger'} rounded-pill">${p.stock}</span></td>
-            <td><button class="btn btn-sm btn-outline-danger rounded-pill" onclick="deleteProduct(${p.id})"><i class="bi bi-trash"></i></button></td>
-        </tr>
-    `).join('');
-}
-
-function toggleAddForm() {
-    const form = document.getElementById('addProductForm');
-    form.classList.toggle('d-none');
-    if(!form.classList.contains('d-none')) form.scrollIntoView({behavior: 'smooth'});
-}
-
-// Initial Load
-function loadStats() { /* Same as before */ }
-function loadOrders() { /* Same as before */ }
-function deleteProduct(id) { /* Same as before */ }
+// Prevent logout (disable right-click and F12 for extra security - optional)
+document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
+
 </body>
 </html>
