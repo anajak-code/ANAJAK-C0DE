@@ -68,6 +68,81 @@
         
         .auth-link { text-align: center; margin-top: 20px; }
         .auth-link a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+        
+        .forgot-link {
+            display: block;
+            text-align: right;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+        
+        .forgot-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .forgot-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            border: none;
+            padding: 25px 30px;
+        }
+        
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-footer {
+            border: none;
+            padding: 0 30px 30px;
+        }
+        
+        .btn-reset {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-reset:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .info-box {
+            background: #e6fffa;
+            border-left: 4px solid #11998e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+        
+        .info-box i {
+            color: #11998e;
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +187,13 @@
                 <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
             </div>
             
+            <!-- Forgot Password Link -->
+            <div class="forgot-link">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">
+                    <i class="bi bi-question-circle"></i> Forgot Password?
+                </a>
+            </div>
+            
             <button type="submit" class="btn-auth">
                 <i class="bi bi-box-arrow-in-right"></i> Login
             </button>
@@ -122,18 +204,98 @@
         </div>
     </div>
 
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-key"></i> Forgot Password
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="info-box">
+                        <i class="bi bi-info-circle"></i>
+                        Enter your email address and we'll help you recover your account.
+                    </div>
+                    
+                    <form id="forgotPasswordForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-envelope"></i> Email Address
+                            </label>
+                            <input type="email" id="forgotEmail" class="form-control" 
+                                   placeholder="Enter your registered email" required>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn-reset">
+                                <i class="bi bi-send"></i> Send Recovery Link
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p class="text-muted text-center w-100 mb-0" style="font-size: 0.85rem;">
+                        Remember your password? <a href="#" data-bs-dismiss="modal" style="color: var(--primary-color);">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                    <h5 class="modal-title">
+                        <i class="bi bi-check-circle"></i> Reset Password
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="info-box" style="background: #f0f9ff; border-left-color: #0ea5e9;">
+                        <i class="bi bi-shield-check" style="color: #0ea5e9;"></i>
+                        Create a new password for your account.
+                    </div>
+                    
+                    <form id="resetPasswordForm">
+                        <input type="hidden" id="resetEmail">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-lock"></i> New Password
+                            </label>
+                            <input type="password" id="newPassword" class="form-control" 
+                                   placeholder="Enter new password" required minlength="6">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-lock-fill"></i> Confirm Password
+                            </label>
+                            <input type="password" id="confirmPassword" class="form-control" 
+                                   placeholder="Confirm new password" required>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn-reset" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                                <i class="bi bi-check2-circle"></i> Reset Password
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Handle Google Sign-In response
         function handleCredentialResponse(response) {
-            // Decode JWT token
             const responsePayload = decodeJwtResponse(response.credential);
 
-            console.log("ID: " + responsePayload.sub);
-            console.log('Full Name: ' + responsePayload.name);
-            console.log('Email: ' + responsePayload.email);
-            console.log("Image URL: " + responsePayload.picture);
-
-            // Create user object
             const googleUser = {
                 name: responsePayload.name,
                 email: responsePayload.email,
@@ -141,7 +303,6 @@
                 isGoogleUser: true
             };
 
-            // Save to localStorage (simulate database)
             let users = JSON.parse(localStorage.getItem('ahnajak_users')) || [];
             const existingUser = users.find(u => u.email === googleUser.email);
             
@@ -150,12 +311,11 @@
                 localStorage.setItem('ahnajak_users', JSON.stringify(users));
             }
 
-            // Set current session
             localStorage.setItem('current_user', JSON.stringify(googleUser));
             
             showAlert(`Welcome, ${responsePayload.name}!`, 'success');
             setTimeout(() => {
-                window.location.href = '../..';
+                window.location.href = '../../index.html';
             }, 1500);
         }
 
@@ -188,6 +348,81 @@
             }
         });
 
+        // Forgot Password - Step 1: Verify Email
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+            let users = JSON.parse(localStorage.getItem('ahnajak_users')) || [];
+            const user = users.find(u => u.email === email);
+
+            if (user) {
+                // Check if it's a Google user
+                if (user.isGoogleUser) {
+                    showAlert('This account uses Google Sign-In. Please login with Google.', 'error');
+                    return;
+                }
+
+                // Store email for reset
+                document.getElementById('resetEmail').value = email;
+                
+                // Close forgot modal and open reset modal
+                const forgotModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+                forgotModal.hide();
+                
+                setTimeout(() => {
+                    const resetModal = new bootstrap.Modal(document.getElementById('resetPasswordModal'));
+                    resetModal.show();
+                    showAlert('Email verified! Please create a new password.', 'success');
+                }, 300);
+            } else {
+                showAlert('Email not found! Please check and try again.', 'error');
+            }
+        });
+
+        // Reset Password - Step 2: Set New Password
+        document.getElementById('resetPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validate passwords match
+            if (newPassword !== confirmPassword) {
+                showAlert('Passwords do not match!', 'error');
+                return;
+            }
+
+            // Validate password length
+            if (newPassword.length < 6) {
+                showAlert('Password must be at least 6 characters!', 'error');
+                return;
+            }
+
+            // Update password in localStorage
+            let users = JSON.parse(localStorage.getItem('ahnajak_users')) || [];
+            const userIndex = users.findIndex(u => u.email === email);
+            
+            if (userIndex !== -1) {
+                users[userIndex].password = newPassword;
+                localStorage.setItem('ahnajak_users', JSON.stringify(users));
+                
+                // Close modal
+                const resetModal = bootstrap.Modal.getInstance(document.getElementById('resetPasswordModal'));
+                resetModal.hide();
+                
+                showAlert('Password reset successful! Please login with your new password.', 'success');
+                
+                // Reset forms
+                document.getElementById('forgotPasswordForm').reset();
+                document.getElementById('resetPasswordForm').reset();
+                
+                // Pre-fill login email
+                document.getElementById('loginEmail').value = email;
+            } else {
+                showAlert('Error updating password. Please try again.', 'error');
+            }
+        });
+
         // Show alert function
         function showAlert(msg, type) {
             const alertDiv = document.createElement('div');
@@ -197,8 +432,10 @@
             alertDiv.style.right = '20px';
             alertDiv.style.zIndex = '9999';
             alertDiv.style.minWidth = '300px';
+            alertDiv.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+            alertDiv.style.borderRadius = '12px';
             alertDiv.innerHTML = `
-                ${msg}
+                <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${msg}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             `;
             document.body.appendChild(alertDiv);
