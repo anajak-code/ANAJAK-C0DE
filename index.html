@@ -3,425 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AHNAJAK CODE </title>
+    <title>My Shop - Online Shopping</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Hanuman:wght@300;400;700&family=Poppins:wght@300;400;600;700&display=swap');
         
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            --danger-gradient: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+        :root { 
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
+            --danger-gradient: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%); 
         }
-
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
-            font-family: 'Poppins', 'Hanuman', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+            font-family: 'Poppins', 'Hanuman', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            min-height: 100vh; 
         }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                radial-gradient(ellipse at top, rgba(255,255,255,0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom, rgba(255,255,255,0.1) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
+        
+        .navbar { 
+            background: rgba(255,255,255,0.95) !important; 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
         }
-
-        .navbar {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        
+        .navbar-brand { 
+            font-weight: 700; 
+            background: var(--primary-gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            font-size: 1.8rem; 
         }
-
-        .navbar-brand {
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 1.8rem;
+        
+        .nav-link { color: #555 !important; font-weight: 500; cursor: pointer; }
+        
+        .cart-badge { 
+            background: var(--danger-gradient); 
+            color: white; 
+            border-radius: 50%; 
+            padding: 2px 8px; 
+            font-size: 0.75rem; 
+            margin-left: 5px; 
         }
-
-        .nav-link { color: #555 !important; font-weight: 500; transition: all 0.3s; margin: 0 5px; }
-        .nav-link:hover { color: #764ba2 !important; transform: translateY(-2px); }
-
-        .cart-badge {
-            background: var(--danger-gradient);
-            color: white;
-            border-radius: 50%;
-            padding: 2px 8px;
-            font-size: 0.75rem;
-            margin-left: 5px;
-        }
-
-        .main-container {
-            position: relative;
-            z-index: 1;
-            padding: 40px 20px;
-            min-height: calc(100vh - 200px);
-        }
-
+        
+        .main-container { padding: 40px 20px; min-height: calc(100vh - 200px); }
         .container { max-width: 1200px; margin: 0 auto; }
-
-        .page-title {
-            text-align: center;
-            color: white;
-            margin-bottom: 50px;
-            animation: fadeInDown 0.8s ease;
+        
+        .page-title { text-align: center; color: white; margin-bottom: 50px; }
+        .page-title h1 { font-size: 3rem; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        
+        .product-card { 
+            background: white; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+            transition: all 0.3s; 
         }
-
-        .page-title h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        
+        .product-image { 
+            height: 250px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
         }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .product-image {
-            height: 250px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .product-card:hover .product-image img { transform: scale(1.1); }
-        .product-image i { font-size: 5rem; color: rgba(255,255,255,0.8); }
-
+        
+        .product-image img { width: 100%; height: 100%; object-fit: cover; }
+        
         .product-info { padding: 25px; }
-        .product-title { font-size: 1.4rem; font-weight: 700; color: #333; margin-bottom: 10px; }
-        .product-description { color: #666; font-size: 0.95rem; margin-bottom: 15px; line-height: 1.6; }
-
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
+        .product-title { font-size: 1.4rem; font-weight: 700; color: #333; }
+        .product-description { color: #666; margin-bottom: 15px; }
         .product-price { font-size: 1.8rem; font-weight: 700; color: #e74c3c; }
-        .product-stock { font-size: 0.9rem; color: #666; }
-
-        .stock-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .stock-in { background: #d4edda; color: #155724; }
-        .stock-out { background: #f8d7da; color: #721c24; }
-
-        .btn-add-to-cart {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
+        
+        .btn-add-to-cart { 
+            width: 100%; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            background: var(--primary-gradient); 
+            color: white; 
+            cursor: pointer; 
             transition: all 0.3s;
-            background: var(--primary-gradient);
-            color: white;
         }
-
-        .btn-add-to-cart:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(118, 75, 162, 0.4);
+        
+        .btn-add-to-cart:hover:not(:disabled) { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 25px rgba(118,75,162,0.4); 
         }
-
-        .btn-add-to-cart:disabled { background: #ccc; cursor: not-allowed; }
-
-        .alert-container {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            z-index: 9999;
-            max-width: 400px;
+        
+        .btn-add-to-cart:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
-
-        .alert-custom {
-            border: none;
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            animation: slideInRight 0.4s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        
+        .alert-container { position: fixed; top: 100px; right: 20px; z-index: 9999; max-width: 400px; }
+        
+        .alert-custom { 
+            border: none; 
+            border-radius: 12px; 
+            padding: 15px 20px; 
+            margin-bottom: 10px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2); 
+            animation: slideInRight 0.4s ease; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
         }
-
+        
         .alert-success-custom { background: var(--success-gradient); color: white; }
         .alert-error-custom { background: var(--danger-gradient); color: white; }
-        .alert-warning-custom { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; }
-
-        .modal-content {
-            border-radius: 25px;
-            border: none;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .modal-header {
-            background: var(--primary-gradient);
-            color: white;
-            border-radius: 25px 25px 0 0;
-            border: none;
-            padding: 25px 30px;
-        }
-
-        .modal-body { padding: 30px; }
-        .form-control {
-            border-radius: 12px;
-            border: 2px solid #e0e0e0;
-            padding: 12px 18px;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-
-        .form-control:focus {
-            border-color: #764ba2;
-            box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
-        }
-
-        .btn-auth {
-            background: var(--primary-gradient);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .btn-auth:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(118, 75, 162, 0.4);
-        }
-
-        .footer {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 40px 20px 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
-        .footer h3 { font-size: 2rem; margin-bottom: 15px; font-weight: 700; }
-        .footer p { opacity: 0.9; margin-bottom: 20px; }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-            opacity: 0.8;
-        }
-
-        .footer-links a:hover { opacity: 1; transform: translateY(-2px); }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-            margin-top: 20px;
-            opacity: 0.7;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 15px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
-        .cart-item img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .cart-total {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #e74c3c;
-            text-align: right;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #e0e0e0;
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(100%); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @media (max-width: 768px) {
-            .page-title h1 { font-size: 2rem; }
-            .products-grid { grid-template-columns: 1fr; }
-            .footer-links { flex-direction: column; gap: 15px; }
-        }
-
-        .empty-state {
+        
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+        
+        .modal-content { border-radius: 25px; border: none; }
+        .modal-header { background: var(--primary-gradient); color: white; border-radius: 25px 25px 0 0; border: none; }
+        .form-control { border-radius: 12px; border: 2px solid #e0e0e0; padding: 12px 18px; }
+        .btn-auth { background: var(--primary-gradient); color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: 600; width: 100%; }
+        
+        .footer { background: rgba(0,0,0,0.8); color: white; padding: 40px 20px; text-align: center; }
+        
+        .cart-item { display: flex; gap: 15px; padding: 15px; background: #f8f9fa; border-radius: 12px; margin-bottom: 15px; }
+        
+        .btn-checkout { background: var(--success-gradient); color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: 700; width: 100%; }
+        
+        /* Loading Spinner */
+        .loading-spinner {
             text-align: center;
-            padding: 60px 20px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 20px;
-            color: #333;
-        }
-
-        .empty-state i { font-size: 5rem; color: #ddd; margin-bottom: 20px; }
-        .empty-state h3 { font-size: 1.8rem; margin-bottom: 10px; }
-        .empty-state p { color: #666; font-size: 1.1rem; }
-
-        .btn-checkout {
-            background: var(--success-gradient);
+            padding: 50px;
             color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .btn-checkout:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(17, 153, 142, 0.4);
-        }
-
-        /* Success Modal */
-        .success-modal-content {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .success-icon {
-            font-size: 5rem;
-            color: #38ef7d;
-            margin-bottom: 20px;
-            animation: bounceIn 0.6s ease;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        .success-modal-content h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .success-modal-content p {
-            color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .order-details {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: left;
-        }
-
-        .order-details-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .order-details-item:last-child {
-            border-bottom: none;
-            font-weight: 700;
-            color: #e74c3c;
-            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
-
     <div class="alert-container" id="alertContainer"></div>
-
-    <!-- Navbar -->
+    
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="bi bi-cart-fill"></i> AHNAJAK CODE</a>
+            <a class="navbar-brand" href="#"><i class="bi bi-cart-fill"></i> My Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -429,24 +157,19 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
-                            <i class="bi bi-cart3"></i> Cart
-                            <span class="cart-badge" id="cartCount">0</span>
+                            <i class="bi bi-cart3"></i> Cart <span class="cart-badge" id="cartCount">0</span>
                         </a>
                     </li>
                     <li class="nav-item" id="authSection">
-                        <button class="btn btn-outline-primary ms-2" onclick="showAuthModal('login')">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
-                        </button>
+                        <button class="btn btn-outline-primary ms-2" onclick="showAuthModal('login')">Login</button>
                     </li>
                     <li class="nav-item d-none" id="userSection">
-                        <div class="dropdown ms-2">
+                        <div class="dropdown">
                             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-person-circle"></i> <span id="userName">User</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#" onclick="showOrders()"><i class="bi bi-bag"></i> My Orders</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
                             </ul>
                         </div>
                     </li>
@@ -455,545 +178,321 @@
         </div>
     </nav>
 
-    <!-- Main Container -->
     <div class="main-container">
         <div class="container">
             <div class="page-title">
-                <h1><i class="bi bi-shop"></i> Welcome to AHNAJAK CODE</h1>
-                <p>Discover amazing products at the best prices!</p>
+                <h1>Welcome to My Shop</h1>
+                <p>Discover amazing products!</p>
             </div>
-            <div class="products-grid" id="productsGrid"></div>
+            <div class="products-grid" id="productsGrid">
+                <div class="loading-spinner">
+                    <div class="spinner-border text-light" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <h3><i class="bi bi-cart-fill"></i>AHNAJAK CODE</h3>
-            <p>This is product by ahnajak code, Enjoy to buy </p>
-            <div class="footer-links">
-                <a href="#"><i class="bi bi-facebook"></i> Facebook</a>
-                <a href="#"><i class="bi bi-telegram"></i> Telegram</a>
-                <a href="#"><i class="bi bi-envelope"></i> Contact Us</a>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Ahnajak Code. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <footer class="footer"><p>&copy; 2026 My Shop. Powered by Forest-SMP</p></footer>
 
     <!-- Auth Modal -->
     <div class="modal fade" id="authModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="authModalTitle">
-                        <i class="bi bi-box-arrow-in-right"></i> Login
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm" onsubmit="login(event)">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Email</label>
-                            <input type="email" id="loginEmail" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Password</label>
-                            <input type="password" id="loginPassword" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn-auth">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
-                        </button>
-                        <p class="text-center mt-3">
-                            Don't have an account? 
-                            <a href="#" onclick="toggleAuthMode()" style="color: #764ba2; font-weight: 600;">Register</a>
-                        </p>
-                    </form>
-
-                    <form id="registerForm" onsubmit="register(event)" style="display: none;">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Full Name</label>
-                            <input type="text" id="regName" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Email</label>
-                            <input type="email" id="regEmail" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Password</label>
-                            <input type="password" id="regPassword" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn-auth">
-                            <i class="bi bi-person-plus"></i> Register
-                        </button>
-                        <p class="text-center mt-3">
-                            Already have an account? 
-                            <a href="#" onclick="toggleAuthMode()" style="color: #764ba2; font-weight: 600;">Login</a>
-                        </p>
-                    </form>
-                </div>
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="authModalTitle">Login</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <form id="loginForm" onsubmit="login(event)">
+                    <input type="email" id="loginEmail" class="form-control mb-3" placeholder="Email" required>
+                    <input type="password" id="loginPassword" class="form-control mb-3" placeholder="Password" required>
+                    <button type="submit" class="btn-auth">Login</button>
+                    <p class="text-center mt-3">No account? <a href="#" onclick="toggleAuthMode()">Register</a></p>
+                </form>
+                <form id="registerForm" onsubmit="register(event)" style="display:none;">
+                    <input type="text" id="regName" class="form-control mb-3" placeholder="Name" required>
+                    <input type="email" id="regEmail" class="form-control mb-3" placeholder="Email" required>
+                    <input type="password" id="regPassword" class="form-control mb-3" placeholder="Password" required>
+                    <button type="submit" class="btn-auth">Register</button>
+                    <p class="text-center mt-3">Have account? <a href="#" onclick="toggleAuthMode()">Login</a></p>
+                </form>
             </div>
-        </div>
+        </div></div>
     </div>
 
     <!-- Cart Modal -->
     <div class="modal fade" id="cartModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold">
-                        <i class="bi bi-cart3"></i> Shopping Cart
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="cartItems">
-                        <p class="text-center text-muted">Your cart is empty</p>
-                    </div>
-                    <div class="cart-total" id="cartTotal" style="display: none;">
-                        Total: $<span id="totalAmount">0.00</span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn-checkout" id="checkoutBtn" onclick="showCheckoutForm()" style="display: none;">
-                        <i class="bi bi-credit-card"></i> Checkout
-                    </button>
-                </div>
+        <div class="modal-dialog modal-lg"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Shopping Cart</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <div id="cartItems"><p class="text-center text-muted">Empty cart</p></div>
+                <div class="mt-3 text-end fw-bold fs-5" id="cartTotal">Total: $0.00</div>
             </div>
-        </div>
+            <div class="modal-footer">
+                <button class="btn-checkout" onclick="showCheckoutModal()">Proceed to Checkout</button>
+            </div>
+        </div></div>
     </div>
 
-    <!-- Checkout Form Modal -->
+    <!-- Checkout Modal -->
     <div class="modal fade" id="checkoutModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold">
-                        <i class="bi bi-credit-card"></i> Checkout
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="checkoutForm" onsubmit="submitOrder(event)">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Full Name *</label>
-                            <input type="text" id="checkoutName" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Email *</label>
-                            <input type="email" id="checkoutEmail" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Phone Number *</label>
-                            <input type="tel" id="checkoutPhone" class="form-control" required>
-                        </div>
-                        <div class="alert alert-info">
-                            <strong>Order Total:</strong> $<span id="checkoutTotal">0.00</span>
-                        </div>
-                        <button type="submit" class="btn-checkout">
-                            <i class="bi bi-check-circle"></i> Confirm Order
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="success-modal-content">
-                        <i class="bi bi-check-circle-fill success-icon"></i>
-                        <h3>Order Placed Successfully!</h3>
-                        <p>Thank you for your purchase.</p>
-                        <div class="order-details" id="orderDetails">
-                            <!-- Will be filled dynamically -->
-                        </div>
-                        <button type="button" class="btn-checkout" data-bs-dismiss="modal" onclick="closeSuccessModal()">
-                            <i class="bi bi-hand-thumbs-up"></i> Continue Shopping
-                        </button>
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Checkout</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <form id="checkoutForm" onsubmit="placeOrder(event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Full Name *</label>
+                        <input type="text" id="checkoutName" class="form-control" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email *</label>
+                        <input type="email" id="checkoutEmail" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Phone Number *</label>
+                        <input type="tel" id="checkoutPhone" class="form-control" required>
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>Order Total:</strong> $<span id="checkoutTotalAmount">0.00</span>
+                    </div>
+                    <button type="submit" class="btn-checkout">Confirm Order</button>
+                </form>
             </div>
-        </div>
+        </div></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // ⚠️ សូមប្រាកដថា URL នេះត្រឹមត្រូវ
         const API_URL = 'https://payment.forestsmp.site/api';
+        
         let cart = [];
         let currentUser = null;
-        let authModal, cartModal, checkoutModal, successModal;
+        let authModal, cartModal, checkoutModal;
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             authModal = new bootstrap.Modal(document.getElementById('authModal'));
             cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
             checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal'));
-            successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            
             loadProducts();
             checkAuth();
-            loadCart();
         });
 
-        // Check Authentication
         function checkAuth() {
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                updateAuthUI();
+            const saved = localStorage.getItem('currentUser');
+            if(saved) { 
+                try {
+                    currentUser = JSON.parse(saved); 
+                    updateAuthUI(); 
+                } catch(e) { console.error("Invalid user data"); }
             }
         }
 
-        // Load Products
         async function loadProducts() {
+            const grid = document.getElementById('productsGrid');
             try {
                 const res = await fetch(`${API_URL}/products`);
+                if (!res.ok) throw new Error('Network response was not ok');
+                
                 const products = await res.json();
                 
-                const grid = document.getElementById('productsGrid');
-                
-                if (!products || products.length === 0) {
-                    grid.innerHTML = `
-                        <div class="empty-state" style="grid-column: 1/-1;">
-                            <i class="bi bi-box-seam"></i>
-                            <h3>No Products Yet</h3>
-                            <p>Check back soon for new arrivals!</p>
-                        </div>
-                    `;
+                if(products.length === 0) {
+                    grid.innerHTML = '<div class="col-12 text-center text-white"><h3>No products available</h3></div>';
                     return;
                 }
 
                 grid.innerHTML = products.map(p => `
                     <div class="product-card">
                         <div class="product-image">
-                            ${p.image_url ? 
-                                `<img src="${p.image_url}" alt="${p.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                                 <i class="bi bi-box-seam" style="display:none;"></i>` :
-                                '<i class="bi bi-box-seam"></i>'
-                            }
+                            ${p.image_url ? `<img src="${p.image_url}" alt="${p.name}">` : '<i class="bi bi-box-seam" style="font-size:5rem;color:white;"></i>'}
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">${p.name}</h3>
-                            <p class="product-description">${p.description || 'No description available'}</p>
-                            <div class="product-meta">
-                                <div>
-                                    <div class="product-price">$${p.price.toFixed(2)}</div>
-                                    <div class="product-stock">
-                                        <span class="stock-badge ${p.stock > 0 ? 'stock-in' : 'stock-out'}">
-                                            ${p.stock > 0 ? `In Stock (${p.stock})` : 'Out of Stock'}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn-add-to-cart" 
-                                    onclick="addToCart(${p.id}, '${p.name}', ${p.price}, '${p.image_url || ''}')"
-                                    ${p.stock === 0 ? 'disabled' : ''}>
-                                ${p.stock > 0 ? '<i class="bi bi-cart-plus"></i> Add to Cart' : '<i class="bi bi-x-circle"></i> Out of Stock'}
-                            </button>
+                            <p class="product-description">${p.description || ''}</p>
+                            <div class="product-price">$${p.price.toFixed(2)}</div>
+                            <button class="btn-add-to-cart" onclick="addToCart(${p.id},'${p.name.replace(/'/g, "\\'")}',${p.price})">Add to Cart</button>
                         </div>
                     </div>
                 `).join('');
-            } catch (err) {
-                showAlert('Error loading products: ' + err.message, 'error');
+            } catch(e) { 
+                grid.innerHTML = '<div class="col-12 text-center text-white"><h3>Failed to load products. Please check your connection.</h3></div>';
+                showAlert('Failed to connect to server', 'error'); 
             }
         }
 
-        // Add to Cart
-        function addToCart(id, name, price, image) {
-            if (!currentUser) {
-                showAlert('Please login to add items to cart!', 'error');
-                showAuthModal('login');
-                return;
+        function addToCart(id, name, price) {
+            if(!currentUser) { 
+                showAlert('Please login first!', 'error'); 
+                showAuthModal('login'); 
+                return; 
             }
-
-            const existingItem = cart.find(item => item.id === id);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ id, name, price, image, quantity: 1 });
-            }
-
-            saveCart();
-            updateCartUI();
-            showAlert('Product added to cart successfully!', 'success');
-        }
-
-        // Save Cart
-        function saveCart() {
-            localStorage.setItem('cart_' + (currentUser ? currentUser.email : 'guest'), JSON.stringify(cart));
-        }
-
-        // Load Cart
-        function loadCart() {
-            if (currentUser) {
-                const savedCart = localStorage.getItem('cart_' + currentUser.email);
-                if (savedCart) {
-                    cart = JSON.parse(savedCart);
-                    updateCartUI();
-                }
-            }
-        }
-
-        // Update Cart UI
-        function updateCartUI() {
-            const cartCount = document.getElementById('cartCount');
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-            const checkoutBtn = document.getElementById('checkoutBtn');
-            const totalAmount = document.getElementById('totalAmount');
-
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-            cartCount.textContent = totalItems;
-            totalAmount.textContent = totalPrice.toFixed(2);
-
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p class="text-center text-muted">Your cart is empty</p>';
-                cartTotal.style.display = 'none';
-                checkoutBtn.style.display = 'none';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        ${item.image ? `<img src="${item.image}" alt="${item.name}">` : '<div style="width:80px;height:80px;background:#ddd;border-radius:10px;display:flex;align-items:center;justify-content:center;"><i class="bi bi-box-seam" style="font-size:2rem;color:#999;"></i></div>'}
-                        <div style="flex:1;">
-                            <h6 class="fw-bold">${item.name}</h6>
-                            <p class="mb-1">$${item.price.toFixed(2)} x ${item.quantity}</p>
-                            <button class="btn btn-sm btn-danger" onclick="removeFromCart(${item.id})">
-                                <i class="bi bi-trash"></i> Remove
-                            </button>
-                        </div>
-                        <div class="text-end">
-                            <strong>$${(item.price * item.quantity).toFixed(2)}</strong>
-                        </div>
-                    </div>
-                `).join('');
-                cartTotal.style.display = 'block';
-                checkoutBtn.style.display = 'block';
-            }
-        }
-
-        // Remove from Cart
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            saveCart();
-            updateCartUI();
-            showAlert('Item removed from cart', 'success');
-        }
-
-        // Show Checkout Form
-        function showCheckoutForm() {
-            if (!currentUser) {
-                showAlert('Please login to checkout!', 'error');
-                showAuthModal('login');
-                return;
-            }
-
-            if (cart.length === 0) {
-                showAlert('Your cart is empty!', 'error');
-                return;
-            }
-
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            document.getElementById('checkoutTotal').textContent = totalPrice.toFixed(2);
             
-            // Pre-fill with user info
-            document.getElementById('checkoutName').value = currentUser.name || '';
-            document.getElementById('checkoutEmail').value = currentUser.email || '';
+            const existing = cart.find(i => i.id === id);
+            if(existing) existing.quantity++;
+            else cart.push({id, name, price, quantity: 1});
+            
+            updateCartUI();
+            showAlert('Added to cart!', 'success');
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((s, i) => s + i.quantity, 0);
+            const total = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
+            
+            document.getElementById('cartCount').textContent = count;
+            document.getElementById('cartTotal').textContent = `Total: $${total.toFixed(2)}`;
+            document.getElementById('checkoutTotalAmount').textContent = total.toFixed(2);
+            
+            const cartItemsDiv = document.getElementById('cartItems');
+            if(cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p class="text-center text-muted">Empty cart</p>';
+            } else {
+                cartItemsDiv.innerHTML = cart.map(i => `
+                    <div class="cart-item">
+                        <div class="flex-grow-1">
+                            <strong>${i.name}</strong><br>
+                            <small>$${i.price.toFixed(2)} x ${i.quantity}</small>
+                        </div>
+                        <div class="fw-bold">$${(i.price * i.quantity).toFixed(2)}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function showCheckoutModal() {
+            if(cart.length === 0) { 
+                showAlert('Cart is empty!', 'error'); 
+                return; 
+            }
+            
+            // Pre-fill user info if available
+            if(currentUser) {
+                document.getElementById('checkoutName').value = currentUser.name || '';
+                document.getElementById('checkoutEmail').value = currentUser.email || '';
+            }
             
             cartModal.hide();
             checkoutModal.show();
         }
 
-        // Submit Order
-        async function submitOrder(e) {
+        async function placeOrder(e) {
             e.preventDefault();
-
+            
             const orderData = {
                 customer_name: document.getElementById('checkoutName').value,
                 customer_email: document.getElementById('checkoutEmail').value,
                 customer_phone: document.getElementById('checkoutPhone').value,
-                items: cart.map(item => ({
-                    product_id: item.id,
-                    quantity: item.quantity
-                }))
+                items: cart.map(i => ({product_id: i.id, quantity: i.quantity}))
             };
 
             try {
                 const res = await fetch(`${API_URL}/orders`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(orderData)
                 });
-
-                if (res.ok) {
-                    const result = await res.json();
-                    
-                    // Show success modal
-                    showSuccessModal(result);
-                    
-                    // Clear cart
+                
+                const data = await res.json();
+                
+                if(res.ok && data.order_id) {
+                    showAlert(`Order placed! ID: ${data.order_id}`, 'success');
                     cart = [];
-                    saveCart();
                     updateCartUI();
-                    
                     checkoutModal.hide();
                     document.getElementById('checkoutForm').reset();
                 } else {
-                    const error = await res.json();
-                    showAlert('Error: ' + (error.error || 'Failed to place order'), 'error');
+                    showAlert(data.error || 'Failed to place order', 'error');
                 }
-            } catch (err) {
-                showAlert('Error placing order: ' + err.message, 'error');
+            } catch(err) { 
+                showAlert('Network error. Please check your connection.', 'error'); 
+                console.error(err);
             }
         }
 
-        // Show Success Modal
-        function showSuccessModal(orderResult) {
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            let detailsHTML = `
-                <div class="order-details-item">
-                    <span>Order ID:</span>
-                    <strong>#${orderResult.order_id}</strong>
-                </div>
-                <div class="order-details-item">
-                    <span>Items:</span>
-                    <span>${cart.length} product(s)</span>
-                </div>
-            `;
-            
-            cart.forEach(item => {
-                detailsHTML += `
-                    <div class="order-details-item">
-                        <span>${item.name} x ${item.quantity}</span>
-                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
-                    </div>
-                `;
-            });
-            
-            detailsHTML += `
-                <div class="order-details-item">
-                    <span>Total:</span>
-                    <span>$${orderResult.total.toFixed(2)}</span>
-                </div>
-            `;
-            
-            document.getElementById('orderDetails').innerHTML = detailsHTML;
-            successModal.show();
-        }
-
-        // Close Success Modal
-        function closeSuccessModal() {
-            successModal.hide();
-        }
-
-        // Show Auth Modal
         function showAuthModal(mode) {
-            document.getElementById('authModalTitle').innerHTML = mode === 'login' ? 
-                '<i class="bi bi-box-arrow-in-right"></i> Login' : 
-                '<i class="bi bi-person-plus"></i> Register';
-            
+            document.getElementById('authModalTitle').innerText = mode === 'login' ? 'Login' : 'Register';
             document.getElementById('loginForm').style.display = mode === 'login' ? 'block' : 'none';
             document.getElementById('registerForm').style.display = mode === 'register' ? 'block' : 'none';
-            
             authModal.show();
         }
 
-        // Toggle Auth Mode
         function toggleAuthMode() {
             const loginForm = document.getElementById('loginForm');
-            const registerForm = document.getElementById('registerForm');
-            const title = document.getElementById('authModalTitle');
-            
-            if (loginForm.style.display === 'block') {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
-                title.innerHTML = '<i class="bi bi-person-plus"></i> Register';
-            } else {
-                loginForm.style.display = 'block';
-                registerForm.style.display = 'none';
-                title.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> Login';
-            }
+            const isLogin = loginForm.style.display !== 'none';
+            loginForm.style.display = isLogin ? 'none' : 'block';
+            document.getElementById('registerForm').style.display = isLogin ? 'block' : 'none';
+            document.getElementById('authModalTitle').innerText = isLogin ? 'Register' : 'Login';
         }
 
-        // Login
         async function login(e) {
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
             try {
-                // Simulate login (replace with actual API call)
-                currentUser = {
-                    email: email,
-                    name: email.split('@')[0],
-                    id: Date.now()
-                };
-                
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                updateAuthUI();
-                loadCart();
-                authModal.hide();
-                showAlert('Login successful! Welcome back.', 'success');
-                document.getElementById('loginForm').reset();
-            } catch (err) {
-                showAlert('Login failed: ' + err.message, 'error');
+                const res = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        email: document.getElementById('loginEmail').value, 
+                        password: document.getElementById('loginPassword').value
+                    })
+                });
+                const data = await res.json();
+                if(res.ok) {
+                    currentUser = data.user;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateAuthUI();
+                    showAlert('Login successful!', 'success');
+                    authModal.hide();
+                    document.getElementById('loginForm').reset();
+                } else { 
+                    showAlert(data.error || 'Login failed', 'error'); 
+                }
+            } catch(e) { 
+                showAlert('Connection error', 'error'); 
             }
         }
 
-        // Register
         async function register(e) {
             e.preventDefault();
-            const name = document.getElementById('regName').value;
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
-
             try {
-                // Simulate registration (replace with actual API call)
-                currentUser = {
-                    email: email,
-                    name: name,
-                    id: Date.now()
-                };
-                
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                updateAuthUI();
-                loadCart();
-                authModal.hide();
-                showAlert('Registration successful! Welcome to My Shop.', 'success');
-                document.getElementById('registerForm').reset();
-            } catch (err) {
-                showAlert('Registration failed: ' + err.message, 'error');
+                const res = await fetch(`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        name: document.getElementById('regName').value, 
+                        email: document.getElementById('regEmail').value, 
+                        password: document.getElementById('regPassword').value
+                    })
+                });
+                const data = await res.json();
+                if(res.ok) {
+                    currentUser = data.user;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateAuthUI();
+                    showAlert('Registration successful!', 'success');
+                    authModal.hide();
+                    document.getElementById('registerForm').reset();
+                } else { 
+                    showAlert(data.error || 'Registration failed', 'error'); 
+                }
+            } catch(e) { 
+                showAlert('Connection error', 'error'); 
             }
         }
 
-        // Logout
         function logout() {
-            if (currentUser) {
-                localStorage.removeItem('cart_' + currentUser.email);
-            }
-            
             localStorage.removeItem('currentUser');
             currentUser = null;
             cart = [];
             updateAuthUI();
             updateCartUI();
-            showAlert('You have been logged out successfully.', 'success');
+            showAlert('Logged out', 'success');
         }
 
-        // Update Auth UI
         function updateAuthUI() {
             const authSection = document.getElementById('authSection');
             const userSection = document.getElementById('userSection');
             const userName = document.getElementById('userName');
-
-            if (currentUser) {
+            
+            if(currentUser) {
                 authSection.classList.add('d-none');
                 userSection.classList.remove('d-none');
                 userName.textContent = currentUser.name;
@@ -1003,33 +502,16 @@
             }
         }
 
-        // Show Alert
-        function showAlert(message, type) {
+        function showAlert(msg, type) {
             const container = document.getElementById('alertContainer');
             const alert = document.createElement('div');
-            alert.className = `alert alert-custom alert-${type}-custom`;
-            
-            const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'x-circle' : 'exclamation-circle';
-            
-            alert.innerHTML = `
-                <i class="bi bi-${icon}-fill"></i>
-                <div>
-                    <strong>${type === 'success' ? 'Success!' : type === 'error' ? 'Error!' : 'Warning!'}</strong>
-                    <div>${message}</div>
-                </div>
-            `;
-            
+            alert.className = `alert-custom alert-${type}-custom`;
+            alert.innerHTML = `<i class="bi bi-${type === 'success' ? 'check' : 'x'}-circle-fill"></i><div>${msg}</div>`;
             container.appendChild(alert);
-            
             setTimeout(() => {
-                alert.style.animation = 'slideInRight 0.4s ease reverse';
+                alert.style.opacity = '0';
                 setTimeout(() => alert.remove(), 400);
-            }, 5000);
-        }
-
-        // Show Orders (Placeholder)
-        function showOrders() {
-            showAlert('Orders page coming soon!', 'warning');
+            }, 3000);
         }
     </script>
 </body>
