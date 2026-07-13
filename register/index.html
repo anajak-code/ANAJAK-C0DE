@@ -121,7 +121,7 @@
         <div class="auth-title">
             <img src="https://i.ibb.co/S4vrvBq8/logo-website.png" alt="Logo" style="height: 60px; margin-bottom: 15px;">
             <h2>Create Account</h2>
-            <p class="text-muted">Join AHNAJAK CODE today</p>
+            <p class="text-muted">Join ANAJAK CODE today</p>
         </div>
 
         <!-- Google Sign-Up Button -->
@@ -197,7 +197,7 @@
             if (existingUser) {
                 showAlert('This email is already registered. Please login instead.', 'error');
                 setTimeout(() => {
-                    window.location.href = '../login/login.html';
+                    window.location.href = '../login';
                 }, 2000);
                 return;
             }
@@ -209,7 +209,7 @@
             // Set current session
             localStorage.setItem('current_user', JSON.stringify(googleUser));
             
-            showAlert(`Welcome to AHNAJAK CODE, ${responsePayload.name}!`, 'success');
+            showAlert(`Welcome to ANAJAK CODE, ${responsePayload.name}!`, 'success');
             setTimeout(() => {
                 window.location.href = '../..';
             }, 1500);
