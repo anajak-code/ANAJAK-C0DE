@@ -1,89 +1,45 @@
 {
   "rewrites": [
-    {
-      "source": "/share/:username/:code",
-      "destination": "/share/profile"
-    },
-    {
-      "source": "/share",
-      "destination": "/share"
-    },
-    {
-      "source": "/share/",
-      "destination": "/share"
-    },
-    {
-      "source": "/login",
-      "destination": "/login"
-    },
-    {
-      "source": "/register",
-      "destination": "/register"
-    },
-    {
-      "source": "/purchase",
-      "destination": "/purchase"
-    },
-    {
-      "source": "/purchase/",
-      "destination": "/purchase"
-    }
+    { "source": "/share/:username/:code", "destination": "/share/profile/index.html" },
+    { "source": "/share", "destination": "/share/index.html" },
+    { "source": "/share/", "destination": "/share/index.html" },
+    { "source": "/login", "destination": "/login/login.html" },
+    { "source": "/register", "destination": "/register/register.html" },
+    { "source": "/purchase", "destination": "/purchase/index.html" },
+    { "source": "/purchase/", "destination": "/purchase/index.html" }
   ],
   "redirects": [
-    {
-      "source": "/share/:username",
-      "destination": "/share",
-      "permanent": false
-    }
+    { "source": "/share/:username", "destination": "/share/index.html", "permanent": false }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "status": 404, "dest": "/404.html" }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
-        }
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
       ]
     },
     {
-      "source": "/share/profile",
+      "source": "/share/profile/index.html",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate"
-        }
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" }
       ]
     },
     {
       "source": "/(.*)\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     }
   ],
   "cleanUrls": false,
   "trailingSlash": false,
-  "github": {
-    "silent": true
-  }
+  "github": { "silent": true }
 }
