@@ -2,4 +2,5 @@ User-agent: *
 Allow: /
 
 # Sitemap
+Host: https://www.anajakcode.site
 Sitemap: https://www.anajakcode.site/sitemap.xml
