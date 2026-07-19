@@ -926,12 +926,34 @@
                     return;
                 }
 
-                grid.innerHTML = products.map((p, index) => `
+                grid.innerHTML = products.map((p, index) => {
+                    // ពិនិត្យមើលថាតើជា File ឬ Image
+                    let mediaHtml = '';
+                    const isFile = p.image_url && p.image_url.match(/\.(jar|zip|rar|tar|exe|msi)$/i);
+                    
+                    if (p.image_url) {
+                        if (isFile) {
+                            // បង្ហាញ Icon ឯកសារ
+                            const ext = p.image_url.split('.').pop().toUpperCase();
+                            mediaHtml = `
+                                <div class="placeholder-icon">
+                                    <i class="bi bi-file-earmark-zip-fill"></i>
+                                    <div style="font-size:1.2rem; margin-top:10px; font-weight:bold;">.${ext}</div>
+                                </div>`;
+                        } else {
+                            // បង្ហាញរូបភាព
+                            mediaHtml = `<img src="${p.image_url}" 
+                                 alt="${p.name}" 
+                                 onerror="this.src='${DEFAULT_IMAGE}'">`;
+                        }
+                    } else {
+                         mediaHtml = `<div class="placeholder-icon"><i class="bi bi-image"></i></div>`;
+                    }
+
+                    return `
                     <div class="product-card" style="animation: fadeInUp 0.6s ease ${index * 0.1}s both;">
                         <div class="product-image">
-                            <img src="${p.image_url || DEFAULT_IMAGE}" 
-                                 alt="${p.name}" 
-                                 onerror="this.src='${DEFAULT_IMAGE}'">
+                            ${mediaHtml}
                         </div>
                         <div class="product-info">
                             <span class="product-category">New</span>
@@ -951,7 +973,8 @@
                             </button>
                         </div>
                     </div>
-                `).join('');
+                    `;
+                }).join('');
             } catch(e) { 
                 grid.innerHTML = `
                     <div class="empty-state">
